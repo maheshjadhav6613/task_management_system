@@ -1,0 +1,57 @@
+<div class="div p-5">
+  <h1 class="text-center py-3">Your Appointment Schedule</h1>
+
+  <!-- Display events -->
+  <div *ngIf="events.length > 0" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div *ngFor="let event of events" class="bg-white p-5 rounded-lg shadow-lg space-y-3 border border-gray-200">
+      <p><strong class="text-lg">{{ event.summary }}</strong></p>
+      <p class="text-sm text-gray-600">
+        <span class="font-semibold">From:</span> {{ event.start.dateTime | date: 'short' }}
+      </p>
+      <p class="text-sm text-gray-600">
+        <span class="font-semibold">To:</span> {{ event.end.dateTime | date: 'short' }}
+      </p>
+      <p class="text-sm text-gray-600">
+        <span class="font-semibold">Email:</span> {{ event.attendees?.[0]?.email || 'N/A' }}
+      </p>
+      <p class="text-sm text-gray-600">
+        <span class="font-semibold">Description:</span> {{ event.description || 'No description' }}
+      </p>
+      <button (click)="editEvent(event)" class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">Edit</button>
+      <button (click)="deleteEvent(event.id)" class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300">Delete</button>
+    </div>
+  </div>
+
+  <div *ngIf="events.length === 0" class="text-center mt-5 text-gray-600">
+    <p>No events available.</p>
+  </div>
+
+  <!-- Update Event Pop-up -->
+  <div *ngIf="selectedEvent" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-xl font-bold mb-4">Update Event</h2>
+      <form [formGroup]="eventForm">
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+          <input formControlName="title" id="title" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+        </div>
+        <div class="mb-4">
+          <label for="appointmentTime" class="block text-sm font-medium text-gray-700">Appointment Time</label>
+          <input type="datetime-local" formControlName="appointmentTime" id="appointmentTime" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input formControlName="email" id="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+        </div>
+        <div class="mb-4">
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea formControlName="description" id="description" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></textarea>
+        </div>
+        <div class="flex justify-between">
+          <button type="button" (click)="updateEvent()" class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">Update</button>
+          <button type="button" (click)="selectedEvent = null" class="bg-gray-500 text-white py-1 px-3 rounded-md hover:bg-gray-600">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

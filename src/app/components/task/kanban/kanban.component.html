@@ -1,0 +1,155 @@
+<!---
+<div *ngIf="isModalOpenpencil" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+  <div class="bg-gray-300 rounded-t-lg shadow-lg w-full max-w-md p-6 animation-dropdown">
+    <div class="flex justify-between items-center border-b rounded-sm  bg-gray-500 p-2 mb-4">
+      <h2 class="text-xl font-semibold text-white font-15">Edit Task</h2>
+      <button (click)="closeModalpencil()" class="text-gray-50 hover:text-gray-50 font-15">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+    <form (ngSubmit)="saveTask()" class="flex flex-col gap-3 font-13">
+      <div class="flex flex-col gap-1">
+        <label for="project" class="text-gray-500 font-semibold">Project:</label>
+        <input [(ngModel)]="newTask.project" name="project" class="w-full p-2 border  border-gray-50 rounded-md"
+          disabled required />
+      </div>
+      <div>
+        <label class="text-gray-500 font-semibold">Description:</label>
+        <textarea [(ngModel)]="newTask.description" name="description"
+          class="w-full p-1 border border-gray-50 rounded-md bg-transparent" required></textarea>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-gray-500 font-semibold">Status:</label>
+          <select [(ngModel)]="newTask.stutes" name="stutes" required
+            class="w-full p-2 border border-gray-50 rounded-md bg-transparent">
+            <option *ngFor="let statu of statusList" [value]="statu.name">{{ statu.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-gray-500 font-semibold">Due Date:</label>
+          <input type="date" [(ngModel)]="newTask.dueDate" name="dueDate"
+            class="w-full p-2 border border-gray-50 rounded-md bg-transparent" />
+        </div>
+      </div>
+      <div>
+        <label class="text-gray-500 font-semibold">Estimate Time (hours):</label>
+        <input type="number" [(ngModel)]="newTask.estimateTime" name="estimateTime"
+          class="w-full p-2 border border-gray-50 rounded-md bg-transparent" />
+      </div>
+      <div>
+        <button type="submit" class="bg-gray-500 text-white px-4 py-2 rounded-md">
+          <i class="bi bi-floppy-fill"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+<!-- <div class="save-changes flex justify-center items-center ">
+  <button (click)="saveTaskStatus()" class="bg-green-500 px-3 py-2 text-white" [disabled]="!draggedTask">save</button>
+</div> -->
+
+
+
+<div class="kanban-board grid grid-cols-1 md:grid-cols-3  gap-5 p-5">
+  <div class="kanban-column bg-white rounded-lg border p-4" *ngFor="let status of statusList">
+    <h2 class="text-[20px] font-bold text-center   text-black py-2 mb-4  rounded-t-xl">{{ status.name }}</h2>
+    <div class="task-list grid grid-cols-1 gap-3  border-gray-300 rounded-lg " (dragover)="onDragOver($event)"
+      (drop)="onDrop($event, status._id)">
+      <ng-container *ngFor="let task of tasksList">
+
+        <div class="task-item rounded-md   animation-rotedet " *ngIf="task.statusId === status._id"
+          [ngClass]="{ 'opacity-50': draggedTask?._id === task._id }" draggable="true"
+          (dragstart)="onDragStart($event, task)">
+
+
+          <div class="task-content mt-[13px] bg-gray-500 roted-animation rounded-md border ">
+            <h3 class="font-bold text-white border-b-2  bg-gray-500 py-1 px-5 ">{{ task.title | titlecase }}</h3>
+            <div class="flex gap-5 px-3 pt-2">
+              <p class="text-[13px] text-gray-50">{{ task.dueDate | date }}</p>
+              <p class="text-[13px] text-gray-50">{{ formatEstimateTime(task.estimateTime) }} </p>
+            </div>
+            <div class="flex justify-between items-center px-2  ps-3">
+            <p class="text-sm text-gray-50 w-[300px] text-[12px]">{{ task.description }}</p>
+
+          </div>
+          <div class="text-end px-3 pb-2 text-sm bg-gray-500">
+            <button type="button" class="mt-2 text-sm text-gray-50 text-[10px]"
+            (click)="editTask(task)">edit</button> |
+            <button type="button" class="mt-2 text-sm text-gray-50 text-[10px]"
+              (click)="deleteTask(task._id)">delete</button>
+          </div>
+          </div>
+        </div>
+      </ng-container>
+      <div *ngIf="!hasTasksForStatus(status._id)" class="text-center text-gray-500">
+        No tasks available
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-top">
+  <div class="bg-white border shadow-lg w-96 max-w-2xl p-6 animation-dropdown">
+    <div class="flex justify-between items-center border-b pb-4 mb-4">
+      <h2 class="text-2xl font-semibold text-blue-500">Edit Task</h2>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">
+        <i class="bi bi-x text-2xl"></i>
+      </button>
+    </div>
+    <form #form="ngForm" (ngSubmit)="updateTask()">
+
+
+
+
+      <div class="relative float-label-input p-2">
+        <input
+          type="text"
+          placeholder=" "
+          id="title"
+          name="title" [(ngModel)]="newTasks.title"
+          class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+          required
+        />
+        <label
+          for="title"
+          class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+        >
+          Title:
+        </label>
+      </div>
+
+
+
+
+      <div class="relative float-label-input p-2">
+        <textarea
+          placeholder=" "
+          id="description"
+         name="description" [(ngModel)]="newTasks.description"
+          rows="3"
+          class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+          required
+        ></textarea>
+        <label
+          for="description"
+          class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+        >
+          Description:
+        </label>
+      </div>
+
+
+
+
+      <div class="flex justify-end gap-4 pt-4 border-t">
+        <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-md">
+          <i class="bi bi-floppy-fill"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

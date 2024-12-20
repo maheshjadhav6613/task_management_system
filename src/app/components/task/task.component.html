@@ -1,0 +1,363 @@
+<div class="container-fluid flex justify-center items-center mt-5">
+
+
+  <div class=" px-3 w-screen mx-5 rounded flex justify-between py-3 items-center ">
+
+    <div class="flex gap-4 justify-center text-gray-500 items-center">
+      <i class="bi bi-funnel-fill text-blue-500 text-2xl"></i>
+      <button (click)="openModal()"
+        class="block text-gray-500 border  p-1 px-2 hover:bg-white hover:text-orange-600   focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+        <i class="bi bi-plus-lg font-bold"></i>
+      </button>
+      <button
+        class="block text-gray-500 border focus:outline-none focus:ring-blue-300 font-medium rounded-lg p-1 px-2 hover:bg-white hover:text-orange-600  text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+        <i class="bi bi-copy"></i>
+      </button>
+    </div>
+
+    <div id="alert-3" *ngIf="isTaskAdd"
+      class="flex items-center p-1 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+      role="alert">
+      <div class="ms-3 text-sm font-medium">
+        <p class="font-bold me-3">Your task successfully added.</p>
+      </div>
+      <button type="button"
+        class="ms-auto  bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:hover:bg-gray-700"
+        data-dismiss-target="#alert-3" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+    </div>
+
+    <h1 class="text-2xl font-bold text-gray-500">Task</h1>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-top" *ngIf="isModalOpen">
+  <div class="bg-white  shadow-lg w-96 max-w-4xl  animation-dropdown">
+    <div class="flex justify-between items-center px-4   rounded-xl my-3">
+      <h1 class="text-2xl font-bold text-blue-500 uppercase">Create your Task</h1>
+      <button (click)="closeModal()" class="text-blue-500 hover:text-blue-700 text-end">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm.value)" class="space-y-4 p-2">
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-2">
+          <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title:</label>
+          <input type="text" id="title" name="title" ngModel
+            class="w-full p-1  outline-none border-b-2 border-blue-500   " placeholder="Enter task title" required />
+        </div>
+
+
+        <div class="p-2">
+          <label for="project" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project:</label>
+          <select id="project" name="projectId" ngModel class="w-full p-2   outline-none border-b-2 border-blue-500 "
+            required>
+            <option *ngFor="let project of projects" [value]="project._id">{{ project.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-2">
+          <label for="priority" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Priority</label>
+          <select id="priority" name="priority" ngModel class="w-full p-2 outline-none border-b-2 border-blue-500 "
+            required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+
+
+        <div class="p-2">
+          <label for="countries_multiple" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Assign
+            To</label>
+          <select multiple id="countries_multiple"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option *ngFor="let user of users" [value]="user._id">{{ user.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-2">
+          <label for="dueDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Due Date:</label>
+          <input type="date" id="dueDate" name="dueDate" ngModel
+            class="w-full p-2 outline-none border-b-2 border-blue-500 " required />
+        </div>
+
+        <div class="p-2">
+          <label for="estimateTime" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estimate Time
+            (hours):</label>
+          <input type="number" id="estimateTime" name="estimateTime" ngModel
+            class="w-full p-2 outline-none border-b-2 border-blue-500 " required />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-2">
+          <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags:</label>
+          <input type="text" id="tags" name="tags" ngModel class="w-full p-2 outline-none border-b-2 border-blue-500 "
+            placeholder="Comma-separated tags" />
+        </div>
+
+
+        <div class="p-2">
+          <label for="attachments"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Attachments:</label>
+          <input type="file" (change)="onFileChange($event)" id="attachments" name="attachments"
+            class="w-full p-2 outline-none border-b-2 border-blue-500 " />
+        </div>
+
+        <div class="p-2">
+          <label for="description"
+            cclass="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description:</label>
+          <textarea id="description" rows="1" name="description" ngModel
+            class="w-full p-2 outline-none border-b-2 border-blue-500 " placeholder="Task description..."
+            required></textarea>
+        </div>
+      </div>
+
+
+      <div class="flex justify-end mt-4 border-t-2 pt-5">
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md focus:outline-none focus:ring"
+          (click)="clickSubmitButton()">
+          Save
+        </button>
+      </div>
+
+    </form> -->
+
+    <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm.value)" class="space-y-4 p-2">
+
+      <!-- Grid Row 1 -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Title Input -->
+        <div class="relative float-label-input p-2">
+          <input
+            type="text"
+            placeholder=" "
+            id="title"
+            name="title"
+            ngModel
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+            required
+          />
+          <label
+            for="title"
+            class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Title:
+          </label>
+        </div>
+
+        <!-- Project Dropdown -->
+        <div class="relative float-label-input p-2">
+          <select
+            id="project"
+            name="projectId"
+            ngModel
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+            required
+          >
+            <option value="" disabled selected>Select a project</option>
+            <option *ngFor="let project of projects" [value]="project._id">
+              {{ project.name }}
+            </option>
+          </select>
+          <label
+            for="project"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Project:
+          </label>
+        </div>
+      </div>
+
+      <!-- Grid Row 2 -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Priority Dropdown -->
+        <div class="relative float-label-input p-2">
+          <select
+            id="priority"
+            name="priority"
+            ngModel
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+            required
+          >
+            <option value="" disabled selected>Select priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <label
+            for="priority"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Priority:
+          </label>
+        </div>
+
+        <!-- Assign To Dropdown -->
+        <div class="relative float-label-input p-2">
+          <select
+            multiple
+            id="assignTo"
+            name="assignedTo"
+            ngModel
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+          >
+            <option *ngFor="let user of users" [value]="user._id">
+              {{ user.name }}
+            </option>
+          </select>
+          <label
+            for="assignTo"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Assign To:
+          </label>
+        </div>
+      </div>
+
+      <!-- Grid Row 3 -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Due Date -->
+        <div class="relative float-label-input p-2">
+          <input
+            type="date"
+            placeholder=" "
+            id="dueDate"
+            name="dueDate"
+            ngModel
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+            required
+          />
+          <label
+            for="dueDate"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Due Date:
+          </label>
+        </div>
+
+        <!-- Estimate Time -->
+        <div class="relative float-label-input p-2">
+          <input
+            type="number"
+            placeholder=" "
+            id="estimateTime"
+            name="estimateTime"
+            ngModel
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+            required
+          />
+          <label
+            for="estimateTime"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Estimate Time:
+          </label>
+        </div>
+      </div>
+
+      <!-- Grid Row 4 -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Tags -->
+        <div class="relative float-label-input p-2">
+          <input
+            type="text"
+            placeholder=" "
+            id="tags"
+            name="tags"
+            ngModel
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+          />
+          <label
+            for="tags"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Tags:
+          </label>
+        </div>
+
+        <!-- Attachments -->
+        <div class="relative float-label-input p-2">
+          <input
+            type="file"
+            placeholder=" "
+            id="attachments"
+            name="attachments"
+            (change)="onFileChange($event)"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+          />
+          <label
+            for="attachments"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+          >
+            Attachments:
+          </label>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="relative float-label-input p-2">
+        <textarea
+          placeholder=" "
+          id="description"
+          name="description"
+          ngModel
+          rows="3"
+          class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+          required
+        ></textarea>
+        <label
+          for="description"
+          class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out"
+        >
+          Description:
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-end mt-4 border-t-2 pt-5">
+        <button
+          type="submit"
+          class="bg-blue-700 text-white px-4 py-2 rounded-md focus:outline-none focus:ring"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<app-kanban></app-kanban>

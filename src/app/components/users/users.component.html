@@ -1,0 +1,427 @@
+<div class="container-fluid flex justify-center items-center mt-5 ">
+  <!-- drawer init and show -->
+
+
+  <div class="  px-8 w-screen mx-5  rounded flex justify-between py-3 items-center  border-b-4">
+
+    <div class="flex gap-4 justify-center items-center">
+
+      <!-- Modal toggle -->
+      <button (click)="openmodal ()"
+        class="block text-black border  p-2 px-3  border-gray-500  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center">
+        <i class="bi bi-plus-lg font-bold"></i>
+      </button>
+
+      <!-- <div class="flex justify-center items-center  ">
+        <input type="text" placeholder="Search..." class="w-50  px-4 py-2  rounded-lg shadow-sm   outline-none" />
+      </div> -->
+
+      <!-- <select id="priority" class="w-50 p-2 border border-gray-300 rounded-md outline-none">
+        <option value="" disabled selected>Select Client</option>
+        <option value="Client  1">Client 1</option>
+        <option value="Client  2">Client 2</option>
+        <option value="Client  3">Client 3</option>
+      </select> -->
+
+    </div>
+    <h1 class="text-2xl font-bold text-gray-500">User </h1>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class=" fixed inset-0 bg-black bg-opacity-50 flex justify-end items-top " *ngIf="isModalOpen">
+  <div class="bg-white  shadow-lg w-full  sm:w-2/5 max-w-4xl p-6 animation-dropdown">
+    <div class="flex justify-between items-center border-b pb-4  p-3 mb-4 rounded-md">
+      <h2 class="text-2xl text-blue-500 font-semibold"> Create New Users</h2>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-gray-500">
+        <i class="bi bi-x text-xl"></i>
+      </button>
+    </div>
+    <form class="space-y-4 p-3 scroll-userlist" action="#" #userForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <div class="grid  grid-cols-2 md:grid-cols-3 gap-4 ">
+        <div class="relative float-label-input p-2">
+          <input type="text" placeholder=" " id="title" #name="ngModel" [(ngModel)]="newUser.name" name="name"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+            required />
+          <label for="title"
+            class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Name
+          </label>
+        </div>
+
+
+
+
+
+        <div class="relative float-label-input p-2">
+          <input type="text" placeholder=" " id="title" #prefix="ngModel" [(ngModel)]="newUser.prefix" name="prefix"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+            required />
+          <label for="title"
+            class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Prefix
+          </label>
+        </div>
+
+
+
+        <div class="relative float-label-input p-2">
+          <input type="number" placeholder=" " id="title" #salary="ngModel" [(ngModel)]="newUser.salary" name="salary"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+            required />
+          <label for="title"
+            class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Salary
+          </label>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div class="relative float-label-input p-2">
+          <input type="email" placeholder=" " id="title" #email="ngModel" [(ngModel)]="newUser.email" name="email"
+            pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+            required />
+          <label for="title"
+            class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Email
+          </label>
+        </div>
+
+
+
+
+
+
+
+
+
+        <!-- <div class="mb-4">
+          <label for="email" class="text-gray-400 font-semibold">Email:</label>
+          <input type="email" id="email" #email="ngModel" [(ngModel)]="newUser.email" name="email"
+            pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$"
+            class="w-full p-2 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring focus:ring-amber-500"
+            placeholder="Enter email" required />
+          @if(email.errors?.['required'] && email.touched){
+          <span style="font-size:10px;" class="bg-red-500 py-1 px-2 mt-2 rounded shadow-slate-700 text-white">Eamil are
+            required</span>
+          }@else if (email.errors?.['pattern']) {
+          <span style="font-size:10px;" class="bg-red-500 py-1 px-2 mt-2 rounded shadow-slate-700 text-white">Please
+            include an &#64; & "." in the email address</span>
+          }@else if(email.valid && email.touched){
+          <span style=" font-size:10px;" class="bg-green-500 py-1 px-2 mt-2 rounded shadow-slate-700 text-white">Done
+            👍</span>
+          }
+        </div> -->
+
+
+        <div class="relative float-label-input p-2">
+          <input type="password" placeholder=" " id="title" #password="ngModel" [(ngModel)]="newUser.password"
+            name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+            required />
+          <label for="title"
+            class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Password
+          </label>
+        </div>
+
+
+        <!-- <div class="mb-4">
+          <label for="password" class="text-gray-400 font-semibold">Password:</label>
+          <input type="password" id="password" #password="ngModel" [(ngModel)]="newUser.password" name="password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            class="w-full p-2 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring focus:ring-amber-500"
+            placeholder="Enter password" required />
+          @if(password.errors?.['required'] && password.touched){
+          <span style="font-size:10px;" class="bg-red-500 py-1 px-2 mt-2 rounded shadow-slate-700 text-white"> Password
+            is required</span>
+          }@else if (password.errors?.['pattern']) {
+          <span style="font-size:10px;" class=" py-1 px-2  rounded shadow-slate-700 text-white">
+            <ul class="p-2 rounded-md bg-red-500">
+              <b>Password must include:</b>
+              <li class="ps-3">At least one uppercase letter</li>
+              <li class="ps-3">At least one lowercase letter</li>
+              <li class="ps-3">At least one number</li>
+              <li class="ps-3">At least one special character (e.g., &#64;$!%*?&)</li>
+              <li class="ps-3">Minimum 8 characters</li>
+            </ul>
+          </span>
+          }@else if(password.valid && password.touched){
+          <span style=" font-size:10px;" class="bg-green-500 py-1 px-2 mt-2 rounded shadow-slate-700 text-white">Done
+            👍</span>
+          }
+        </div> -->
+
+
+
+
+
+        <div class="relative float-label-input p-2">
+          <input type="password" placeholder=" " id="title" #cpassword="ngModel" [(ngModel)]="newUser.confirmPassword"
+            name="confirmPassword"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+            required />
+          <label for="title"
+            class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Confirm Password
+          </label>
+        </div>
+
+
+
+
+
+
+        <div class="relative float-label-input p-2">
+          <select id="project" #project="ngModel" [(ngModel)]="newUser.project" name="project" required
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+            required>
+            <option value="" disabled selected>Select a project</option>
+            <option *ngFor="let project of projectList" [value]="project.name">{{project.name}}</option>
+          </select>
+          <label for="project"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Project
+          </label>
+        </div>
+
+
+
+        <div class="relative float-label-input p-2">
+          <select id="project" #roles="ngModel" [(ngModel)]="newUser.role" name="role" required
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal"
+            required>
+            <option value="" disabled selected>Select a project</option>
+            <option *ngFor="let role of RolesList" [value]="role.role">{{role.role}}</option>
+          </select>
+          <label for="project"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Role
+          </label>
+        </div>
+
+
+
+
+        <div class="relative float-label-input p-2">
+          <input type="file" placeholder=" " id="attachments" name="attachment" [(ngModel)]="newUser.attachment"
+            class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 leading-normal" />
+          <label for="attachments"
+            class="absolute top-3 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+            Profile Picture
+          </label>
+        </div>
+
+
+
+
+
+
+
+        <div class="flex items-center space-x-4"><label>Status:</label>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer" [(ngModel)]="newUser.status" name="status" />
+            <div
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-500 peer-focus:ring-2 peer-focus:ring-blue-300 dark:bg-gray-600 dark:peer-checked:bg-blue-400">
+            </div>
+            <div
+              class="w-5 h-5 bg-white rounded-full absolute left-1 top-0.5 peer-checked:translate-x-full peer-checked:border-white transform transition-transform">
+            </div>
+          </label>
+        </div>
+
+      </div>
+
+        <h3 class="font-bold text-2xl ">Permissions</h3>
+        <div class="flex flex-col justify-between space-x-4 p-4  rounded-lg">
+          <label class="flex items-center ms-4 space-x-2">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-500" [(ngModel)]="newUser.permissions.task"
+              name="permissions.task" />
+            <span class="text-gray-400 font-medium">Task</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-500" [(ngModel)]="newUser.permissions.project"
+              name="permissions.project" />
+            <span class="text-gray-400 font-medium">Projects</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-500" [(ngModel)]="newUser.permissions.users"
+              name="permissions.users" />
+            <span class="text-gray-400 font-medium">Users</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-500"
+              [(ngModel)]="newUser.permissions.calendars" name="permissions.calendars" />
+            <span class="text-gray-400 font-medium">Calendar</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-500" [(ngModel)]="newUser.permissions.roles"
+              name="permissions.roles" />
+            <span class="text-gray-400 font-medium">Roles</span>
+          </label>
+        </div>
+        <div class="flex justify-end items-center mt-4 gap-3 border-t-2 pt-2">
+
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+            Save
+          </button>
+        </div>
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+<div class="container px-8 my-8">
+  <h1 class="text-2xl font-bold text-gray-500 mb-6 text-center">Users List</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let user of userList;" class="bg-white shadow flex border border-gray-200">
+      <div class="flex justify-start ">
+        <div class=" bg-green-500 shadow-inner shadow-slate-600 h-20 w-20 rounded-ee-full ">
+          <h2 class=" mt-4 ms-5 text-3xl top-4 left-5 font-semibold text-gray-50">{{ user.id }}</h2>
+        </div>
+        <div class="py-6">
+          <div class="mb-4 px-6">
+            <p class="text-gray-600">Name: {{ user.name }}</p>
+            <p class="text-gray-600">Email: {{ user.email }}</p>
+            <p class="text-gray-600">Password: {{ user.password }}</p>
+          </div>
+          <div class="mb-4 px-6">
+            <h3 class="font-semibold text-gray-700">Permissions:</h3>
+            <ul class="list-disc pl-5">
+              <li *ngFor="let permission of user.filteredPermissions">
+                {{ permission | titlecase }}
+              </li>
+            </ul>
+          </div>
+          <div class="px-6">
+            <button type="button" class="text-gray-500 hover:text-blue-700" (click)="editRole(user)">
+              edit
+            </button> |
+            <button type="button" class="text-gray-500 hover:text-red-700 " (click)="deleteUser(user._id)">
+              delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- columns -->
+<!-- create update modal -->
+<div *ngIf="isUpdateModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-top ">
+  <div class="bg-white  shadow-lg w-96 max-w-2xl p-6 animation-dropdown">
+    <div class="flex justify-between items-center border-b pb-4 rounded-md p-3 mb-4">
+      <h2 class="text-2xl text-blue-500 font-semibold">Edit User</h2>
+      <button (click)="isUpdateModalClose()" class="text-gray-500 hover:text-gray-500">
+        <i class="bi bi-x text-xl"></i>
+      </button>
+    </div>
+    <form #form="ngForm" (ngSubmit)="updateUser()">
+
+      <div class="relative float-label-input p-2">
+        <input type="text" placeholder=" " id="title" [(ngModel)]="newUser.name" name="name"
+          class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+          required />
+        <label for="title"
+          class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+          Name
+        </label>
+      </div>
+
+      <div class="relative float-label-input p-2">
+        <input type="text" placeholder=" " id="title" [(ngModel)]="newUser.email" name="email"
+          class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+          required />
+        <label for="title"
+          class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+          Email
+        </label>
+      </div>
+
+      <div class="relative float-label-input p-2">
+        <input type="text" placeholder=" " id="title" [(ngModel)]="newUser.password" name="password"
+          class="block w-full bg-white focus:outline-none focus:shadow-outline border border-blue-500 rounded-md  py-3 px-3 leading-normal"
+          required />
+        <label for="title"
+          class="absolute top-4 left-3 text-gray-500 pointer-events-none transition duration-200 ease-in-out">
+          Password
+        </label>
+      </div>
+
+      <div class="mb-4 flex flex-col gap-2">
+        <label for="order" class="text-gray-400 font-semibold my-2">Password:</label>
+        <input type="text" id="order" [(ngModel)]="newUser.password" name="password"
+          class="w-full p-2 border border-gray-300 rounded-md" required>
+      </div>
+      <h3 class="font-bold text-2xl ">Permissions</h3>
+      <div class="flex flex-col justify-between space-x-4 p-4 bg-blue-100 rounded-lg">
+
+
+        <label class="flex items-center ms-4 space-x-2">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-amber-600" [(ngModel)]="newUser.permissions.task"
+            name="permissions.task" />
+          <span class="text-gray-700 font-medium">Task</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-amber-600" [(ngModel)]="newUser.permissions.project"
+            name="permissions.project" />
+          <span class="text-gray-700 font-medium">Projects</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-amber-600" [(ngModel)]="newUser.permissions.users"
+            name="permissions.users" />
+          <span class="text-gray-700 font-medium">Users</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-amber-600"
+            [(ngModel)]="newUser.permissions.calendars" name="permissions.calendars" />
+          <span class="text-gray-700 font-medium">Calendar</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-amber-600" [(ngModel)]="newUser.permissions.roles"
+            name="permissions.roles" />
+          <span class="text-gray-700 font-medium">Roles</span>
+        </label>
+      </div>
+      <div class="flex justify-between gap-4 pt-4 ">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+          Save Edit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="container mx-auto mt-10 space-y-5 px-10" *ngIf="massage">
+  <!-- Alert Success  -->
+  <div class="flex justify-between text-green-200 shadow-inner rounded p-3 bg-green-600">
+    <p class="self-center">
+      <strong>Successfully </strong>update User.....
+    </p>
+    <strong class="text-xl align-center cursor-pointer alert-del" (click)="massageClose()">&times;</strong>
+  </div>

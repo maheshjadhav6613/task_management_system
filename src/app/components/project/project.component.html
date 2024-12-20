@@ -1,0 +1,297 @@
+<div class="container-fluid flex justify-center items-center mt-5">
+  <!-- Header -->
+  <div class=" px-3 w-screen mx-5 rounded flex justify-between  border-b-4  py-2 items-center ">
+    <div class="flex gap-4 justify-center items-center">
+      <!-- Add Project Button -->
+      <button (click)="openModal(true)"
+        class="text-gray border p-2 px-3 hover:bg-white hover:text-orange-600 font-medium rounded-lg">
+        <i class="bi bi-plus-lg font-bold"></i>
+      </button>
+    </div>
+    <h1 class="text-2xl font-bold text-gray-500">Projects</h1>
+  </div>
+</div>
+
+<!-- Project Table -->
+<!-- <div class="container px-8 mt-8">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Project List</h1>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+      <thead>
+        <tr>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">ID</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Project</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Prefix</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Client</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Color</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Users</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projectList" class="border-b hover:bg-amber-100">
+          <td class="py-4 px-6 text-gray-800">{{ project.id }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ project.name }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ project.prefix }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ project.client }}</td>
+          <td class="py-4 px-6">
+            <span class="inline-block w-6 h-6 rounded-full" [style.backgroundColor]="project.color"></span>
+          </td>
+          <td class="py-4 px-6 text-gray-800">{{ project.users }}</td>
+          <td>
+            <button (click)="" class="text-blue-500 ms-5 hover:text-blue-700">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button (click)="" class="text-red-500 ms-5 hover:text-red-700">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> -->
+
+<!-- Modal -->
+<!-- <div *ngIf="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 animation-dropdown">
+    <div class="flex justify-between items-center border-b pb-4">
+      <h2 class="text-xl font-semibold">{{ iChangeButton ? 'Create New Project' : 'Edit Project' }}</h2>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <form #form="ngForm" (ngSubmit)="iChangeButton ? saveProject(form) : updateProject()" class="space-y-4 p-3">
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Project Name:*</label>
+        <input type="text" [(ngModel)]="newProject.name" name="name" placeholder="Project Name" class="border rounded-md p-2" required #projectName="ngModel" minlength="2" pattern="^[A-Z][a-z]+$"/>
+      </div>
+      @if(projectName.errors?.['required'] && projectName.touched){
+        <span style="color: red;font-size:10px;">Text Not Filled</span>
+      }
+      @else if(projectName.touched && projectName.errors?.["minlength"]){
+        <span style="color: red;font-size:10px;">Maximum 2 characters are requird</span>
+      }
+      @else if(projectName.touched){
+        <span style="color: rgb(0, 255, 51);font-size:10px;">Continue i am Watch !</span>
+      }
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Prefix:*</label>
+        <input type="text" [(ngModel)]="newProject.prefix" name="prefix" placeholder="Prefix" class="border rounded-md p-2" required />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Client:*</label>
+        <input type="text" [(ngModel)]="newProject.client" name="client" placeholder="Client" class="border rounded-md p-2" required />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Color:*</label>
+        <input type="color" [(ngModel)]="newProject.color" name="color" placeholder="Color" class="border w-16 h-8 rounded-md  " required />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Users:*</label>
+        <input type="text" [(ngModel)]="newProject.users" name="users" placeholder="Users" class="border rounded-md p-2" required />
+      </div>
+      <div class="flex justify-between gap-4 pt-4 border-t">
+        <button type="submit" class="bg-amber-500 text-white px-4 py-2 rounded-md">
+          {{ iChangeButton ? 'Submit' : 'Update' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+
+<!-- <div class="container px-8 mt-8">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Project List</h1>
+
+
+
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+      <thead>
+        <tr>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">ID</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Project</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Client</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Color</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Users</th>
+          <th class="py-3 px-6 bg-amber-200 text-left text-sm font-semibold text-gray-700">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projects; let i = index;" class="border-b hover:bg-amber-100">
+          <td class="py-4 px-6 text-gray-800">{{ project.id }}</td>
+          <td class="py-4 px-6 text-gray-800">{{ project.name }}</td>
+
+          <td class="py-4 px-6 text-gray-800">{{ project.client }}</td>
+          <td class="py-4 px-6">
+            <span class="inline-block w-6 h-6 rounded-full" [style.backgroundColor]="project.color"></span>
+          </td>
+          <td class="py-4 px-6 text-gray-800">{{ project.users }}</td>
+          <td class="py-4 px-6 flex gap-4">
+            <button (click)="editProject(project)" class="text-blue-500 hover:text-blue-700">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button (click)="deleteProject(project._id)" class="text-red-500  hover:text-red-700">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> -->
+
+
+<!-- <div class="mt-5 grid grid-cols-2   gap-3   p-5">
+  <div class="w-full h-auto border border-s-4 border-e-4 border-gray-600 rounded-md" *ngFor="let project of projects; let i = index;">
+   <div class="flex flex-row justify-start items-center">
+    <div class=" w-40 h-24 flex justify-between shadow-gray-950  shadow-inner ps-10 rounded-e-full items-center bg-gray-600">
+      <h1 class="text-2xl font-bold text-white">{{project.id}}</h1>
+      <div class="w-14 h-14 bg-slate-100 rounded-full me-3 flex justify-center items-center shadow-gray-900 shadow-md">  <i class="ri-folder-fill text-2xl text-blue-400"></i></div>
+    </div>
+    <div class="py-5 ms-5">
+      <div class="flex  gap-3 items-center">
+       <div>
+        <p class=" text-2xl  font-bold text-orange-600">{{project.name | titlecase}}</p>
+       </div>
+        <div class="text-sm ">
+          <button (click)="editProject(project)" class="text-gray-500 ">
+            Edit |
+          </button>
+          <button (click)="deleteProject(project._id)" class="text-gray-500  ">
+            delete
+          </button>
+        </div>
+      </div>
+
+      <div class="text-sm flex flex-col gap-3 ">
+
+          <p class="">Client: <span class="">{{ project.client | titlecase }}</span> </p>
+          <p class="">Color: <span class="ms-4 inline-block w-16 h-4 rounded-full" [style.backgroundColor]="project.color"></span></p>
+          <p class="">Users: <span class="">{{ project.users }}</span></p>
+
+
+      </div>
+    </div>
+   </div>
+  </div>
+</div> -->
+
+
+
+<div class="mt-5 grid sm:grid-cols-2 gap-10 p-5">
+  <div
+    class="w-full h-auto border rounded-md"
+    *ngFor="let project of projects; let i = index;"
+    [style.borderColor]="project.color"
+  >
+    <div class="flex flex-row justify-start items-center">
+      <div
+        class="w-40 h-24 flex justify-between shadow-gray-950 shadow-inner ps-10 rounded-e-full items-center"
+        [style.backgroundColor]="project.color"
+      >
+        <h1 class="text-2xl font-bold text-white">{{ project.id }}</h1>
+        <div class="w-14 h-14 bg-slate-100 rounded-full me-3 flex justify-center items-center shadow-gray-900 shadow-md">
+          <i class="ri-folder-fill text-2xl text-blue-400"></i>
+        </div>
+      </div>
+      <div class="py-5 ms-5">
+        <div class="flex gap-3 items-center">
+          <div>
+            <p class="text-2xl font-bold text-orange-600">{{ project.name | titlecase }}</p>
+          </div>
+
+        </div>
+        <div class="text-sm flex justify-between items-center gap-10">
+          <div>
+          <p>Client: <span>{{ project.client | titlecase }}</span></p>
+          <p>
+            Color:
+            <span
+              class="ms-4 inline-block w-16 h-4 rounded-full"
+              [style.backgroundColor]="project.color"
+            ></span>
+          </p>
+          <p>Users: <span>{{ project.users }}</span></p>
+        </div>
+          <div class="text-sm">
+            <button (click)="editProject(project)" class="text-gray-500">Edit |</button>
+            <button (click)="deleteProject(project._id)" class="text-gray-500">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Modal for Adding/Editing Project -->
+<div *ngIf="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-top ">
+  <div class="bg-white shadow-lg w-96 max-w-2xl p-6 animation-dropdown ">
+    <div class="flex justify-between items-center border-b pb-4 p-3 mb-4 rounded-md">
+      <h2 class="text-xl font-semibold text-blue-500">{{ iChangeButton ? ' New Project' : 'Edit Project' }}</h2>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-gray-500">
+        <i class="bi bi-x text-xl"></i>
+      </button>
+    </div>
+    <form action="" class="flex flex-col gap-10 mt-10" (ngSubmit)="iChangeButton ? saveProject() : updateProject()">
+      <div class="relative float-label-input">
+        <input type="text" placeholder=" " [(ngModel)]="newProject.name" name="name" class="block bg-white w-full focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 block appearance-none leading-normal" >
+        <label class="absolute top-3 left-0 text-gray-500 pointer-events-none transition duration-200 ease-in-outbg-white px-2">Project Name:</label>
+    </div>
+    <div class="relative float-label-input">
+      <input type="text" placeholder=" " [(ngModel)]="newProject.client" name="client" class="block bg-white w-full focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 block appearance-none leading-normal" >
+      <label class="absolute top-3 left-0 text-gray-500 pointer-events-none transition duration-200 ease-in-outbg-white px-2">Client:</label>
+  </div>
+  <div class="relative float-label-input">
+    <input type="color" placeholder=" " [(ngModel)]="newProject.color" name="color" style="height: 50px;" class="block bg-white w-full  focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 block appearance-none leading-normal" >
+    <label class="absolute top-3 left-0 text-gray-500 pointer-events-none transition duration-200 ease-in-outbg-white px-2">Color:</label>
+</div>
+<div class="relative float-label-input">
+  <input type="text" placeholder=" " [(ngModel)]="newProject.users" name="users" class="block bg-white w-full focus:outline-none focus:shadow-outline border border-blue-500 rounded-md py-3 px-3 block appearance-none leading-normal" >
+  <label class="absolute top-3 left-0 text-gray-500 pointer-events-none transition duration-200 ease-in-outbg-white px-2">Users:</label>
+</div>
+<div class="flex justify-end gap-4 pt-4 border-t">
+  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+    {{ iChangeButton ? 'Save' : 'Save Edit' }}
+  </button>
+</div>
+    </form>
+    <!-- <form #form="ngForm" (ngSubmit)="iChangeButton ? saveProject() : updateProject()" class="space-y-4 p-3">
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Project Name:*</label>
+        <input type="text" [(ngModel)]="newProject.name" name="name" placeholder="Project Name"
+          class="border rounded-md p-2" required />
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Client:*</label>
+        <input type="text" [(ngModel)]="newProject.client" name="client" placeholder="Client"
+          class="border rounded-md p-2" required />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Color:*</label>
+        <input type="color" [(ngModel)]="newProject.color" name="color" class="border w-16 h-8 rounded-md" required />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <label class="font-semibold">Users:*</label>
+        <input type="text" [(ngModel)]="newProject.users" name="users" placeholder="Users" class="border rounded-md p-2"
+          required />
+      </div>
+      <div class="flex justify-between gap-4 pt-4 border-t">
+        <button type="submit" class="bg-amber-500 text-white px-4 py-2 rounded-md">
+          {{ iChangeButton ? 'Add Data' : 'Edit Data' }} <i class="bi bi-floppy-fill"></i>
+        </button>
+      </div>
+    </form> -->
+  </div>
+</div>
+

@@ -1,0 +1,49 @@
+
+.float-label-input {
+  margin: 10px 0;
+}
+
+
+.float-label-input:focus-within label,
+.float-label-input input:not(:placeholder-shown) + label {
+ transform: translateY(-1.5rem) scale(0.75);
+ background-color: white;
+}
+
+
+.relative.float-label-input {
+ position: relative;
+}
+
+.float-label-input input:not(:placeholder-shown) + label,
+.float-label-input select:not(:placeholder-shown) + label,
+.float-label-input textarea:not(:placeholder-shown) + label {
+ transform: translateY(-1.5rem) scale(0.75);
+ background-color: white;
+}
+
+.float-label-input input:focus + label,
+.float-label-input select:focus + label,
+.float-label-input textarea:focus + label {
+ transform: translateY(-1.5rem) scale(0.75);
+ background-color: white;
+}
+
+.float-label-input label {
+ position: absolute;
+ top: 1rem;
+
+ left: 0.75rem;
+ color: #6b7280; /* Tailwind's gray-500 */
+ transition: all 0.2s ease;
+ pointer-events: none;
+}
+
+
+
+@media screen and (max-width: 640px) {
+  .scroll-userlist {
+     overflow-y: scroll;
+     height: 500px;
+  }
+}
